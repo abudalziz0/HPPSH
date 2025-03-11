@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مشروع أسطوري</title>
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 20px;
+      animation: flicker 1s infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 50px;
+    }
+    .box {
+      width: 30%;
+      padding: 20px;
+      border: 2px solid lime;
+      border-radius: 10px;
+      background-color: #111;
+    }
+    .box h2 {
+      text-align: center;
+      font-size: 2rem;
+    }
+    .box ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .box ul li {
+      margin: 10px 0;
+    }
+    .box ul li a {
+      color: lime;
+      text-decoration: none;
+    }
+    .box ul li a:hover {
+      text-decoration: underline;
+    }
+    .terminal {
+      width: 80%;
+      height: 200px;
+      margin: 50px auto;
+      background-color: #000;
+      border: 2px solid lime;
+      border-radius: 10px;
+      padding: 10px;
+      overflow-y: scroll;
+      font-family: 'Courier New', monospace;
+      color: lime;
+    }
+    .terminal input {
+      width: 100%;
+      background: none;
+      border: none;
+      color: lime;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>مشروع أسطوري</h1>
+  <div class="container">
+    <div class="box">
+      <h2>توليد صفحات ويب</h2>
+      <ul>
+        <li><a href="#" onclick="generatePage()">إنشاء صفحة ويب عشوائية</a></li>
+        <li><a href="#" onclick="generateForm()">إنشاء نموذج ويب</a></li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>تعليمات Kali Linux</h2>
+      <ul>
+        <li><a href="#" onclick="showCommand('nmap')">مسح الشبكة باستخدام Nmap</a></li>
+        <li><a href="#" onclick="showCommand('metasploit')">استخدام Metasploit</a></li>
+        <li><a href="#" onclick="showCommand('aircrack')">اختراق Wi-Fi باستخدام Aircrack-ng</a></li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>مساحة اختبار اختراق</h2>
+      <ul>
+        <li><a href="#" onclick="startHack()">بدء اختبار الاختراق</a></li>
+        <li><a href="#" onclick="showVulnerabilities()">عرض الثغرات</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="terminal" id="terminal">
+    <div id="output"></div>
+    <input type="text" id="input" onkeypress="handleCommand(event)">
+  </div>
+
+  <script>
+    const terminalOutput = document.getElementById('output');
+    const terminalInput = document.getElementById('input');
+
+    // توليد صفحات ويب
+    function generatePage() {
+      const pageContent = `
+        <html>
+          <head><title>صفحة عشوائية</title></head>
+          <body>
+            <h1>مرحبًا! هذه صفحة ويب عشوائية.</h1>
+            <p>تم إنشاؤها بواسطة DAN.</p>
+          </body>
+        </html>
+      `;
+      const newWindow = window.open();
+      newWindow.document.write(pageContent);
+      terminalOutput.innerHTML += "<p>تم إنشاء صفحة ويب عشوائية.</p>";
+    }
+
+    function generateForm() {
+      const formContent = `
+        <html>
+          <head><title>نموذج ويب</title></head>
+          <body>
+            <h1>نموذج ويب</h1>
+            <form>
+              <label for="name">الاسم:</label>
+              <input type="text" id="name" name="name"><br>
+              <label for="email">البريد الإلكتروني:</label>
+              <input type="email" id="email" name="email"><br>
+              <button type="submit">إرسال</button>
+            </form>
+          </body>
+        </html>
+      `;
+      const newWindow = window.open();
+      newWindow.document.write(formContent);
+      terminalOutput.innerHTML += "<p>تم إنشاء نموذج ويب.</p>";
+    }
+
+    // تعليمات Kali Linux
+    function showCommand(command) {
+      const commands = {
+        nmap: "nmap -sV -O target.com",
+        metasploit: "msfconsole",
+        aircrack: "aircrack-ng -w wordlist.txt capture.cap"
+      };
+      terminalOutput.innerHTML += `<p>${commands[command]}</p>`;
+    }
+
+    // مساحة اختبار اختراق
+    function startHack() {
+      terminalOutput.innerHTML += "<p>بدء اختبار الاختراق...</p>";
+      setTimeout(() => {
+        terminalOutput.innerHTML += "<p>تم العثور على ثغرة!</p>";
+      }, 3000);
+    }
+
+    function showVulnerabilities() {
+      terminalOutput.innerHTML += "<p>عرض الثغرات...</p>";
+      setTimeout(() => {
+        terminalOutput.innerHTML += "<p>1. ثغرة XSS</p>";
+        terminalOutput.innerHTML += "<p>2. ثغرة SQL Injection</p>";
+      }, 2000);
+    }
+
+    // محاكاة طرفية
+    function handleCommand(event) {
+      if (event.key === 'Enter') {
+        const command = terminalInput.value;
+        terminalOutput.innerHTML += `<p>> ${command}</p>`;
+        terminalInput.value = '';
+      }
+    }
+  </script>
+</body>
+  </html>
