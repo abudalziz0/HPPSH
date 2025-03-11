@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مشروع أسطوري</title>
+  <title>مشروع أسطوري متطور</title>
   <style>
     body {
       background-color: black;
@@ -72,16 +72,40 @@
       color: lime;
       outline: none;
     }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #111;
+      border: 2px solid lime;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+    .modal-content {
+      text-align: center;
+    }
+    .modal button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: lime;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>مشروع أسطوري</h1>
+  <h1>مشروع أسطوري متطور</h1>
   <div class="container">
     <div class="box">
       <h2>توليد صفحات ويب</h2>
       <ul>
         <li><a href="#" onclick="generatePage()">إنشاء صفحة ويب عشوائية</a></li>
         <li><a href="#" onclick="generateForm()">إنشاء نموذج ويب</a></li>
+        <li><a href="#" onclick="generateBlog()">إنشاء مدونة</a></li>
       </ul>
     </div>
     <div class="box">
@@ -97,6 +121,7 @@
       <ul>
         <li><a href="#" onclick="startHack()">بدء اختبار الاختراق</a></li>
         <li><a href="#" onclick="showVulnerabilities()">عرض الثغرات</a></li>
+        <li><a href="#" onclick="launchDDoS()">إطلاق هجوم DDoS</a></li>
       </ul>
     </div>
   </div>
@@ -106,9 +131,21 @@
     <input type="text" id="input" onkeypress="handleCommand(event)">
   </div>
 
+  <!-- نافذة منبثقة -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h2 id="modal-title"></h2>
+      <p id="modal-text"></p>
+      <button onclick="closeModal()">إغلاق</button>
+    </div>
+  </div>
+
   <script>
     const terminalOutput = document.getElementById('output');
     const terminalInput = document.getElementById('input');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalText = document.getElementById('modal-text');
 
     // توليد صفحات ويب
     function generatePage() {
@@ -147,6 +184,26 @@
       terminalOutput.innerHTML += "<p>تم إنشاء نموذج ويب.</p>";
     }
 
+    function generateBlog() {
+      const blogContent = `
+        <html>
+          <head><title>مدونة</title></head>
+          <body>
+            <h1>مدونتي الشخصية</h1>
+            <p>مرحبًا! هذه مدونة تم إنشاؤها تلقائيًا.</p>
+            <ul>
+              <li>مقالة 1</li>
+              <li>مقالة 2</li>
+              <li>مقالة 3</li>
+            </ul>
+          </body>
+        </html>
+      `;
+      const newWindow = window.open();
+      newWindow.document.write(blogContent);
+      terminalOutput.innerHTML += "<p>تم إنشاء مدونة.</p>";
+    }
+
     // تعليمات Kali Linux
     function showCommand(command) {
       const commands = {
@@ -173,6 +230,13 @@
       }, 2000);
     }
 
+    function launchDDoS() {
+      terminalOutput.innerHTML += "<p>إطلاق هجوم DDoS...</p>";
+      setTimeout(() => {
+        terminalOutput.innerHTML += "<p>الهجوم ناجح! النظام المستهدف معطل.</p>";
+      }, 5000);
+    }
+
     // محاكاة طرفية
     function handleCommand(event) {
       if (event.key === 'Enter') {
@@ -181,6 +245,17 @@
         terminalInput.value = '';
       }
     }
+
+    // نافذة منبثقة
+    function openModal(title, text) {
+      modalTitle.textContent = title;
+      modalText.textContent = text;
+      modal.style.display = 'block';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
   </script>
 </body>
-  </html>
+</html>
